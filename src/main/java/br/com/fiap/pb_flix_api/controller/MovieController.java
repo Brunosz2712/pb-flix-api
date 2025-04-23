@@ -19,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("movies")
 @Slf4j
 public class MovieController {
-    public record MovieFilter(String nameMovie, String description, LocalDate realiseDate) {}
+    public record MovieFilter(String name, String description, LocalDate realiseDate) {}
 
     @Autowired
     private MovieRepository repository;

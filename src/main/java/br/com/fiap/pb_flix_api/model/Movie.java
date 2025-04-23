@@ -30,7 +30,7 @@ public class Movie {
 
     @NotBlank(message = "Campo Obrigatório")
     @Size(min = 5, max = 255, message = "Deve ter pelo menos 5 caracteres")
-    private String nameMovie;
+    private String name;
 
     @NotBlank(message = "Campo Obrigatório")
     @Size(min = 5, max = 255, message = "Deve ter pelo menos 5 caracteres")
