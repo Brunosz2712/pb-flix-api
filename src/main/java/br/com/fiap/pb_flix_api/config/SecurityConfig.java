@@ -21,26 +21,24 @@ public class SecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         return http
             .authorizeHttpRequests(auth -> auth
-            .requestMatchers("/categories/**").hasAnyRole("USER", "ADMIM")
-            .requestMatchers("/movies/**").hasRole("ADMIM")
-            .requestMatchers(HttpMethod.GET, "/user/**").authenticated()
-            .requestMatchers(HttpMethod.DELETE, "/user/**").hasRole("ADMIM")
-            .requestMatchers("/swagger-ui/**").permitAll()
-            .requestMatchers("/v3/api-docs/**").permitAll()
-            )
+                .requestMatchers(HttpMethod.DELETE, "/user/**").hasAnyAuthority("ADMIM")
+                .requestMatchers("/swagger-ui/**").permitAll()
+                .requestMatchers("/v3/api-docs/**").permitAll()
+                .requestMatchers("/h2-console/**").permitAll()
+                .anyRequest().authenticated())
             .csrf(csrf -> csrf.disable())
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .httpBasic(Customizer.withDefaults())
-            .build();
+        .build();
     }
 
-    @Bean
-    UserDetailsService userDetailsService(){
-        return new InMemoryUserDetailsManager(
-            User.withUsername("bruno").password("$2a$12$r2lYEbs1IwcTzUq.BIva5uKXllZH263zDoFOyimoyLcbZKSShOuwa").roles("ADMIM").build(),
-            User.withUsername("marrone").password("$2a$12$W10tLdJGsI8YSot6GlTXpO0Ca4fPePHFjlr/G2K36GTWeKBtSeYyu").roles("USER").build()
-        );
-    }
+    // @Bean
+    // UserDetailsService userDetailsService(){
+    //     return new InMemoryUserDetailsManager(
+    //         User.withUsername("bruno").password("$2a$12$r2lYEbs1IwcTzUq.BIva5uKXllZH263zDoFOyimoyLcbZKSShOuwa").roles("ADMIM").build(),
+    //         User.withUsername("marrone").password("$2a$12$W10tLdJGsI8YSot6GlTXpO0Ca4fPePHFjlr/G2K36GTWeKBtSeYyu").roles("USER").build()
+    //     );
+    // }
 
     @Bean
     PasswordEncoder passwordEncoder(){
