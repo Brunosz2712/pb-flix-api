@@ -19,12 +19,10 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-// import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 
 @Entity
 @Table(name = "users")
@@ -34,30 +32,31 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class User implements UserDetails {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Email(message = "Email inválido")
-    @NotBlank(message = "Campo Obrigatório")
+    @Email(message = "email inválido")
+    @NotBlank(message = "campo obrigatório")
     @Column(unique = true)
     private String email;
 
-    @NotBlank(message = "Campo Obrigatório")
+    @NotBlank(message = "campo obrigartório")
     @Size(min = 5)
-    // @Pattern ver depois no GPT
     private String password;
 
-    @NotNull(message = "Campo Obrigatório")
+    @NotNull(message = "campo obrigatório")
     @Enumerated(EnumType.STRING)
     private UserRole role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-       return List.of(new SimpleGrantedAuthority(role.toString()));
+        return List.of(new SimpleGrantedAuthority(role.toString()));
     }
 
     @Override
     public String getUsername() {
-      return email;
+        return email;
     }
+
 }

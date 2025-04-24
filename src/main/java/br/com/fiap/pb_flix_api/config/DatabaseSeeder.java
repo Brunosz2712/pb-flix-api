@@ -1,20 +1,22 @@
 package br.com.fiap.pb_flix_api.config;
 
-import br.com.fiap.pb_flix_api.model.Category;
-import br.com.fiap.pb_flix_api.model.Movie;
-import br.com.fiap.pb_flix_api.model.MovieType;
-import br.com.fiap.pb_flix_api.repository.CategoryRepository;
-import br.com.fiap.pb_flix_api.repository.MovieRepository;
-import br.com.fiap.pb_flix_api.repository.UserRepository;
-import jakarta.annotation.PostConstruct;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import br.com.fiap.pb_flix_api.model.Category;
+import br.com.fiap.pb_flix_api.model.Movie;
+import br.com.fiap.pb_flix_api.model.MovieType;
+import br.com.fiap.pb_flix_api.model.User;
+import br.com.fiap.pb_flix_api.model.UserRole;
+import br.com.fiap.pb_flix_api.repository.CategoryRepository;
+import br.com.fiap.pb_flix_api.repository.MovieRepository;
+import br.com.fiap.pb_flix_api.repository.UserRepository;
+import jakarta.annotation.PostConstruct;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -27,9 +29,11 @@ public class DatabaseSeeder {
    @Autowired
    private MovieRepository movieRepository;
 
-   @Autowired UserRepository userRepository;
+   @Autowired
+    private UserRepository userRepository;
 
-   @Autowired PasswordEncoder passwordEncoder;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
    @PostConstruct
    public void init(){
@@ -84,11 +88,17 @@ public class DatabaseSeeder {
       
       movieRepository.saveAll(movies);
 
-      // UserRepository.saveAll(List.of(
-      //    User.builder()
-      //    .email("brunosouza_27@yahoo.com.br")
-      //    .password(passwordEncoder.encode("12345"))
-      //    .role
-      // ))
+      userRepository.saveAll(List.of(
+                User.builder()
+                        .email("brunosouza_27@yahoo.com.br")
+                        .password(passwordEncoder.encode("12345"))
+                        .role(UserRole.ADMIM)
+                        .build(),
+
+                User.builder()
+                        .email("maria@fiap.com.br")
+                        .password(passwordEncoder.encode("12345"))
+                        .role(UserRole.USER)
+                        .build()));
    }
 }

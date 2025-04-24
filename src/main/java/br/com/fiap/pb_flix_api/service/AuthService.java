@@ -1,18 +1,25 @@
-// package br.com.fiap.pb_flix_api.service;
+package br.com.fiap.pb_flix_api.service;
 
-// import org.springframework.security.core.userdetails.UserDetails;
-// import org.springframework.security.core.userdetails.UserDetailsService;
-// import org.springframework.security.core.userdetails.UsernameNotFoundException;
-// import org.springframework.stereotype.Service;
-// public class AuthService implements UserDetailsService {
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
-//     @Override
-//     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//        var user = repository.findByEmail(username).orElseTrhow(
-//         () -> new UsernameNotFoundException(username, null)
-//        ); 
-//        return user;
-        
-//     }
-    
-// }
+import br.com.fiap.pb_flix_api.repository.UserRepository;
+
+@Service
+public class AuthService implements UserDetailsService {
+
+    @Autowired
+    private UserRepository repository;
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        var user = repository.findByEmail(username).orElseThrow(
+                () -> new UsernameNotFoundException(username, null));
+        System.out.println("User found:" + user);
+        return user;
+    }
+
+}
