@@ -16,7 +16,7 @@ import br.com.fiap.pb_flix_api.repository.MovieRepository;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
-@RequestMapping("movies")
+@RequestMapping("/movies")
 @Slf4j
 public class MovieController {
     public record MovieFilter(String name, String description, LocalDate realiseDate) {}

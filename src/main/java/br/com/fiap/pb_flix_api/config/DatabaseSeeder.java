@@ -28,10 +28,10 @@ public class DatabaseSeeder {
    public void init(){
       // Primeiro salvamos as categorias
       var categories = List.of(
-         Category.builder().name("Ação").gender("Masculino").icon("Movie").build(),
-         Category.builder().name("Drama").gender("Neutro").icon("Movie").build(),
-         Category.builder().name("Terror").gender("Masculino").icon("Movie").build(),
-         Category.builder().name("Suspense").gender("Masculino").icon("Movie").build()
+         Category.builder().name("A Espera de Um Milagre").gender("Drama").icon("Movie").build(),
+         Category.builder().name("Tropas Estelares").gender("Fixão").icon("Movie").build(),
+         Category.builder().name("Atividade Paranormal").gender("Terror").icon("Movie").build(),
+         Category.builder().name("Alto da Compadecida").gender("Comédia").icon("Movie").build()
       );
 
       // Salvamos as categorias para obter seus IDs
